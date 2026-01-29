@@ -14,8 +14,7 @@ import MultiSelect from "@/components/common/MultiSelect";
 const CreateBook = () => {
   const router = useRouter();
   const { createBook } = useBookStore();
-  const genreStore = useGenreStore();
-  const genreList = genreStore.genreList;
+  const { genreList, getGenreList } = useGenreStore();
 
   const [formData, setFormData] = useState({
     cover: "",
@@ -62,13 +61,9 @@ const CreateBook = () => {
     }
   };
 
-  const getGenreList = () => {
-    genreStore.getGenreList();
-  };
-
   useEffect(() => {
     getGenreList();
-  }, []);
+  }, [getGenreList]);
 
   return (
     <div className="pb-6">

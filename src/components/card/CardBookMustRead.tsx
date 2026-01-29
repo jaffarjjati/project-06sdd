@@ -36,7 +36,7 @@ const CardBookMustRead: React.FC<BookProps> = ({
         className={`${isSidebarOpen ? "col-span-3" : "col-span-1"} md:col-span-1 flex justify-center`}
       >
         <Image
-          src={`/images/${imageSrc}`}
+          src={`${imageSrc}`}
           alt="Hujan Bulan Juni"
           width={50}
           height={124}

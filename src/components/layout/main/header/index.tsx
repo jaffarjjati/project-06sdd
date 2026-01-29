@@ -11,8 +11,7 @@ const Header = () => {
   const hasHydrated = useHasHydrated();
   const [search, setValue] = useState("");
   const { isSidebarOpen } = useSidebar();
-  const userData = useAuthStore((state) => state.userData);
-  const logout = useAuthStore((state) => state.logout);
+  const { userData, logout } = useAuthStore();
   const router = useRouter();
 
   if (!hasHydrated) return null;

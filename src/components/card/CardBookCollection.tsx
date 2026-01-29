@@ -33,7 +33,7 @@ const CardBookCollection: React.FC<BookProps> = ({
       onClick={toDetail}
     >
       <Image
-        src={`/images/${imageSrc}`}
+        src={`${imageSrc}`}
         alt="Hujan Bulan Juni"
         width={124}
         height={124}

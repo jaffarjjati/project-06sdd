@@ -24,8 +24,7 @@ const Books = () => {
   const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
   const router = useRouter();
   const { isSidebarOpen } = useSidebar();
-  const bookStore = useBookStore();
-  const bookList = bookStore.bookList;
+  const { bookList, getBookList } = useBookStore();
 
   const [selected, setSelected] = useState("sorting by");
 
@@ -43,18 +42,15 @@ const Books = () => {
     router.push(`/books/create`);
   };
 
-  const getBookList = () => {
+  useEffect(() => {
     const params = {
       page: 1,
       limit: 6,
       title: "",
     };
-    bookStore.getBookList(params);
-  };
 
-  useEffect(() => {
-    getBookList();
-  }, []);
+    getBookList(params);
+  }, [getBookList]);
   return (
     <div>
       {/* section recommended books */}
