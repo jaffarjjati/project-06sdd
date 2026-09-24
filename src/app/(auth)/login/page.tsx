@@ -77,17 +77,19 @@ const Login = () => {
   };
 
   return (
-    <div className="relative w-100 h-full flex flex-col">
-      <div className="flex-[0.3] pt-2">
-        <h1 className="text-3xl font-bold mb-4">Login</h1>
-      </div>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex-[0.7] items-center"
-      >
+    <div className="w-full">
+      <p className="font-mono text-xs uppercase tracking-[0.3em] text-rose-700">
+        01 — login
+      </p>
+      <h1 className="mt-3 mb-10 font-serif text-5xl md:text-6xl leading-none tracking-tight">
+        Welcome <em className="text-rose-600">back</em>.
+      </h1>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-1">
         {error && <p className="text-red-500 text-sm">{error}</p>}
         <div className="py-1">
-          <h3 className="font-semibold text-lg py-2 px-3">Username or Email</h3>
+          <h3 className="font-mono text-xs uppercase tracking-widest text-rose-900/70 py-2 px-3">
+            Username or Email
+          </h3>
           <InputText
             {...customRegister("usernameOrEmail")}
             name="usernameOrEmail"
@@ -98,7 +100,9 @@ const Login = () => {
         </div>
         <div className="py-1">
           <div className="flex justify-between items-center">
-            <h3 className="font-semibold text-lg py-2 px-3">Password</h3>
+            <h3 className="font-mono text-xs uppercase tracking-widest text-rose-900/70 py-2 px-3">
+              Password
+            </h3>
             <a
               href="/forgot-password"
               className="text-sm text-rose-500 hover:text-rose-800 px-3"
@@ -119,14 +123,14 @@ const Login = () => {
         <div className="flex flex-col py-2">
           <div className="flex justify-center items-center">
             <Button
-              className="rounded-full min-w-[120px]"
-              color="rose"
+              className="rounded-full w-full py-3! hover:bg-rose-600! hover:-rotate-1 transition-all!"
+              color="black"
               type="submit"
             >
               {loading ? "Logging In..." : "Login"}
             </Button>
           </div>
-          <small className="text-center py-1">
+          <small className="text-center pt-3">
             new user?{" "}
             <a href="/sign-up" className="text-rose-500 hover:text-rose-800">
               sign up

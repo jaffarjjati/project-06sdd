@@ -1,7 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
-import ReactDatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import dynamic from "next/dynamic";
 import { CalendarIcon } from "@heroicons/react/24/outline";
+
+// Calendar only renders after the input is opened, so load it on demand.
+const DatePickerCalendar = dynamic(() => import("./DatePickerCalendar"), {
+  ssr: false,
+});
 
 interface DatePickerProps {
   selectedDate: Date | null;
@@ -47,7 +51,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
         placeholder={placeholder}
         onFocus={() => setIsOpen(true)}
         readOnly
-        className={`w-full border rounded-3xl py-2 px-3 text-sm pr-10 border-gray-300 focus:ring-rose-300 focus:border-rose-300 focus:outline-none focus:ring-1 ${className}`}
+        className={`w-full border rounded-3xl py-2 px-3 text-sm pr-10 border-gray-300 focus:ring-rose-300 focus:border-rose-300 focus:outline-hidden focus:ring-1 ${className}`}
       />
 
       <CalendarIcon
@@ -57,18 +61,12 @@ const DatePicker: React.FC<DatePickerProps> = ({
 
       {isOpen && (
         <div className="absolute top-full left-0 mt-2 z-50">
-          <ReactDatePicker
+          <DatePickerCalendar
             selected={selectedDate}
-            onChange={(date) => {
+            onChange={(date: Date | null) => {
               onChange(date);
               setIsOpen(false);
             }}
-            inline
-            showMonthDropdown
-            showYearDropdown
-            dropdownMode="select"
-            dateFormat="MM/dd/yyyy"
-            calendarClassName="bg-white !rounded-3xl overflow-auto"
           />
         </div>
       )}

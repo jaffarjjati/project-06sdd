@@ -29,44 +29,31 @@ const CardBook: React.FC<BookProps> = ({
   };
 
   return (
-    <div className={`cursor-pointer ${className}`} onClick={toDetail}>
-      <Image
-        src={`${imageSrc}`}
-        alt="background blur"
-        width={300}
-        height={200}
-        className="absolute bottom-0 left-0 w-full h-[70%] object-cover blur-sm py-2"
-      />
-
-      <div className="absolute bottom-0 left-0 w-full h-[75%] bg-black bg-opacity-30 backdrop-blur-2xl rounded-xl py-2"></div>
-      <div
-        className="grid grid-cols-3 min-h-full gap-2 px-4 text-white transition-transform duration-300 ease-in-out
-      hover:translate-y-[-10px] will-change-transform"
-      >
+    <div className={`group cursor-pointer ${className}`} onClick={toDetail}>
+      <div className="absolute bottom-0 left-0 w-full h-[75%] bg-white/55 backdrop-blur-xl border border-white/70 rounded-[2rem]"></div>
+      <div className="grid grid-cols-3 min-h-full gap-4 px-4 text-neutral-950 transition-transform duration-500 group-hover:-translate-y-2">
         <div className="col-span-3 md:col-span-1 flex items-end justify-center px-2 z-10">
           <Image
             src={`${imageSrc}`}
-            alt="book cover"
+            alt={title}
             width={150}
             height={200}
-            className="rounded-lg shadow-[-10px_10px_10px_rgba(0,0,0,0.3)]"
+            className="-rotate-3 rounded-r-xl rounded-l-sm shadow-[-14px_18px_24px_-6px_rgba(136,19,55,0.45)] transition-transform duration-500 group-hover:rotate-0"
           />
         </div>
 
         <div className="col-span-3 md:col-span-2 pt-[14%] flex flex-col justify-between h-full z-10">
           <div className="py-2">
-            <h3 className="font-semibold text-xl min-h-[56px] flex items-center">
-              {title}
-            </h3>
-            <span className="font-semibold text-xl">
-              By <span className="text-sm font-normal">{author}</span>
-            </span>
+            <h3 className="font-serif text-3xl leading-none">{title}</h3>
+            <p className="pt-2 font-mono text-[11px] uppercase tracking-widest text-rose-900/70">
+              {author}
+            </p>
           </div>
 
-          <div className="flex items-stretch pb-2">
-            <p className="text-sm font-normal tracking-wider [word-spacing:2px]">
-              {year} <span className="font-extrabold text-lg">•</span> {genre}
-            </p>
+          <div className="pb-3">
+            <span className="inline-block -rotate-6 border-2 border-rose-600 rounded-md px-2 py-0.5 font-mono text-xs font-bold uppercase tracking-widest text-rose-600 opacity-80">
+              {year} ✺ {genre}
+            </span>
           </div>
         </div>
       </div>

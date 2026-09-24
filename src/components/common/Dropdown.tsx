@@ -1,10 +1,11 @@
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-import * as HeroIcons from "@heroicons/react/24/outline";
+import { CheckIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
+import { menuItem, menuItemSelected, menuPanel } from "./menuStyles";
 
 interface DropdownItem {
   name: string;
-  icon?: string;
+  icon?: React.ComponentType<{ className?: string }>;
 }
 
 interface DropdownProps {
@@ -61,7 +62,7 @@ const Dropdown: React.FC<DropdownProps> = ({
         onClick={toggleDropdown}
         className={`px-4 py-2 rounded-3xl flex items-center space-x-2 whitespace-nowrap overflow-hidden truncate
           hover:bg-rose-600 hover:text-white focus:ring-rose-300
-          ${withBackground ? "bg-gray-200" : "bg-transparent"}`}
+          ${withBackground ? "bg-white/70 border border-white/70 shadow-sm" : "bg-transparent"}`}
       >
         {imageSrc && (
           <Image
@@ -75,7 +76,7 @@ const Dropdown: React.FC<DropdownProps> = ({
         <span className={`text-sm ${hideOnMd ? "hidden md:flex" : "flex"}`}>
           {selectedText}
         </span>
-        <HeroIcons.ChevronDownIcon
+        <ChevronDownIcon
           className={`h-4 w-4 transition-transform duration-300 ${
             isOpen ? "rotate-180" : "rotate-0"
           }`}
@@ -83,28 +84,24 @@ const Dropdown: React.FC<DropdownProps> = ({
       </button>
 
       {isOpen && (
-        <div className="absolute left-0 mt-2 bg-white rounded-3xl border border-gray-300 shadow-lg z-10">
-          <ul className="py-2 text-sm">
+        <div className={`${menuPanel} left-0`}>
+          <ul className="flex flex-col gap-0.5">
             {list.map((menu, index) => {
-              const IconComponent = withIcons
-                ? (
-                    HeroIcons as Record<
-                      string,
-                      React.FC<{ className?: string }>
-                    >
-                  )[menu.icon || ""]
-                : null;
+              const IconComponent = withIcons ? menu.icon : null;
 
               return (
                 <li
                   key={index}
-                  className="px-4 py-2 hover:bg-rose-600 hover:text-white cursor-pointer rounded-3xl flex items-center space-x-2"
+                  className={`${menuItem} ${menu.name === selectedText ? menuItemSelected : ""}`}
                   onClick={() => handleSelect(menu.name)}
                 >
                   {withIcons && IconComponent && (
                     <IconComponent className="h-5 w-5" />
                   )}
                   <span>{menu.name}</span>
+                  {menu.name === selectedText && (
+                    <CheckIcon className="ml-auto h-4 w-4" />
+                  )}
                 </li>
               );
             })}

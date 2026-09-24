@@ -1,8 +1,12 @@
 import { useState, useRef, useEffect } from "react";
-import Image from "next/image";
 import Link from "next/link";
-import * as HeroIcons from "@heroicons/react/24/outline";
-import julian from "@/components/assets/images/julian.jpg";
+import { menuItem, menuPanel } from "@/components/common/menuStyles";
+import {
+  ArrowRightOnRectangleIcon,
+  ChevronDownIcon,
+  Cog8ToothIcon,
+  UserCircleIcon,
+} from "@heroicons/react/24/outline";
 
 interface UserDropdownProps {
   className?: string;
@@ -11,8 +15,8 @@ interface UserDropdownProps {
 }
 
 const dropdownList = [
-  { name: "Settings", destination: "/settings", icon: "Cog8ToothIcon" },
-  { name: "Logout", destination: "/logout", icon: "ArrowRightOnRectangleIcon" },
+  { name: "Settings", destination: "/settings", icon: Cog8ToothIcon },
+  { name: "Logout", destination: "/logout", icon: ArrowRightOnRectangleIcon },
 ];
 
 const UserDropdown: React.FC<UserDropdownProps> = ({
@@ -51,7 +55,7 @@ const UserDropdown: React.FC<UserDropdownProps> = ({
     <div className={`relative ${className}`} ref={dropdownRef}>
       <button
         onClick={toggleDropdown}
-        className="px-4 py-2 bg-gray-200 rounded-3xl flex items-center space-x-2 whitespace-nowrap 
+        className="px-4 py-2 bg-white/50 backdrop-blur-xl border border-white/70 shadow-sm rounded-3xl flex items-center space-x-2 whitespace-nowrap 
           overflow-hidden truncate hover:bg-rose-600 hover:text-white focus:ring-rose-300"
       >
         {/* <Image
@@ -59,11 +63,11 @@ const UserDropdown: React.FC<UserDropdownProps> = ({
           alt="dropdown icon"
           className="w-5 h-5 rounded-full"
         /> */}
-        <HeroIcons.UserCircleIcon className="h-5 w-5" />
+        <UserCircleIcon className="h-5 w-5" />
         <span className="text-sm hidden md:flex">
           {userData?.fullname ?? "who are you?"}
         </span>
-        <HeroIcons.ChevronDownIcon
+        <ChevronDownIcon
           className={`h-4 w-4 transition-transform duration-300 ${
             isOpen ? "rotate-180" : "rotate-0"
           }`}
@@ -71,19 +75,17 @@ const UserDropdown: React.FC<UserDropdownProps> = ({
       </button>
 
       {isOpen && (
-        <div className="absolute right-4 mt-2 w-48 bg-white rounded-3xl border border-gray-300">
-          <ul className="py-2 text-sm">
+        <div className={`${menuPanel} right-0 w-48`}>
+          <ul className="flex flex-col gap-0.5">
             {dropdownList.map((menu, index) => {
-              const IconComponent = (
-                HeroIcons as Record<string, React.FC<{ className?: string }>>
-              )[menu.icon];
+              const IconComponent = menu.icon;
 
               const isLogout = menu.name === "Logout";
 
               return (
                 <li
                   key={index}
-                  className="px-4 py-2 hover:bg-rose-600 hover:text-white cursor-pointer rounded-3xl"
+                  className={menuItem}
                   onClick={() => handleMenu(menu.name)}
                 >
                   {isLogout ? (

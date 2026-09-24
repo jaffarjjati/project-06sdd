@@ -11,26 +11,29 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
-    "@hookform/resolvers": "^5.1.1",
-    "axios": "^1.9.0",
-    "js-cookie": "^3.0.5",
-    "next": "^16.1.6",
-    "react": "^19.2.4",
-    "react-datepicker": "^8.1.0",
-    "react-dom": "^19.2.4",
-    "react-hook-form": "^7.57.0",
-    "tailwind-scrollbar-hide": "^2.0.0",
+    "@hookform/resolvers": "^5.9.1",
+    "axios": "^1.20.0",
+    "js-cookie": "^3.0.8",
+    "next": "^16.3.6",
+    "react": "^19.3.0",
+    "react-datepicker": "^9.1.0",
+    "react-dom": "^19.3.0",
+    "react-hook-form": "^7.88.0",
+    "tailwind-scrollbar-hide": "^4.0.0",
+    "three": "^0.186.0",
     "yup": "^1.6.1",
-    "zustand": "^5.0.3"
+    "zustand": "^5.0.15"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
     "@types/js-cookie": "^3.0.6",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "postcss": "^8",
-    "prettier": "^3.4.2",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "@types/node": "^24.13.6",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@types/three": "^0.186.0",
+    "postcss": "^8.5.28",
+    "prettier": "^3.9.9",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^7.0.2"
   }
 }

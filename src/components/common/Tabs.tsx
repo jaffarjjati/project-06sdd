@@ -22,7 +22,7 @@ export const Tabs = ({
 
   return (
     <TabsContext.Provider value={{ activeTab, setActiveTab }}>
-      <div className={`w-full flex flex-col flex-grow min-h-0 ${className}`}>
+      <div className={`w-full flex flex-col grow min-h-0 ${className}`}>
         {/* Tabs Header */}
         <div className="flex space-x-4 border-b">
           {tabsArray.map((child, index) =>

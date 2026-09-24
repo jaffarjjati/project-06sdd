@@ -1,5 +1,4 @@
 import React from "react";
-import * as HeroIcons from "@heroicons/react/24/outline";
 
 interface ButtonProps {
   onClick?: () => void;
@@ -18,7 +17,7 @@ interface ButtonProps {
     | "rose";
   className?: string;
   type?: "button" | "submit" | "reset";
-  icon?: string;
+  icon?: React.ComponentType<{ className?: string }>;
   iconPosition?: "left" | "right";
 }
 
@@ -39,8 +38,7 @@ const colorClasses = {
     "bg-white text-black hover:bg-rose-600 hover:text-white focus:ring-rose-300",
   transparent:
     "bg-transparent text-black hover:bg-rose-600 hover:text-white focus:ring-rose-300",
-  opacity10:
-    "bg-black bg-opacity-10 hover:bg-opacity-20 text-black focus:ring-rose-300",
+  opacity10: "bg-black/10 hover:bg-black/20 text-black focus:ring-rose-300",
   rose: "bg-rose-600 text-white hover:bg-white hover:text-black border border-rose-600 focus:ring-rose-300",
 };
 
@@ -54,9 +52,7 @@ const Button: React.FC<ButtonProps> = ({
   icon,
   iconPosition = "left",
 }) => {
-  const IconComponent =
-    icon &&
-    (HeroIcons as Record<string, React.FC<{ className?: string }>>)[icon];
+  const IconComponent = icon;
 
   const sizeClass = children ? sizeClasses[size] : "";
   const iconOnlyClasses = !children ? "w-10 h-10" : "";
@@ -65,7 +61,7 @@ const Button: React.FC<ButtonProps> = ({
     <button
       onClick={onClick}
       type={type}
-      className={`rounded focus:outline-none focus:ring-2 flex items-center justify-center ${sizeClass} ${colorClasses[color]} ${iconOnlyClasses} ${className}`}
+      className={`${className.includes("rounded") ? "" : "rounded-sm"} transition-colors duration-200 focus:outline-hidden focus:ring-2 flex items-center justify-center ${sizeClass} ${colorClasses[color]} ${iconOnlyClasses} ${className}`}
     >
       {!children && IconComponent && <IconComponent className="h-5 w-5" />}
 

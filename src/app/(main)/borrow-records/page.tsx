@@ -4,6 +4,9 @@ import { useBookStore } from "@/store/book";
 import { formatYearOnly } from "@/utils/formatDate";
 import Button from "@/components/common/Button";
 import CardBook from "@/components/card/CardBook";
+import PageHero from "@/components/zine/PageHero";
+import SectionTitle from "@/components/zine/SectionTitle";
+import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 
 const BorrowRecords = () => {
   const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -106,14 +109,39 @@ const BorrowRecords = () => {
   }, []);
   return (
     <div>
+      <PageHero
+        label="03 — the ledger"
+        title={
+          <>
+            What you <em className="text-yellow-300">took</em>,
+            <br />
+            what you gave <em>back</em>.
+          </>
+        }
+        subtitle="Every stamp in and out of your library card, in one place."
+      >
+        <div className="rotate-6 bg-yellow-300 text-neutral-950 rounded-full w-36 h-36 flex flex-col items-center justify-center shadow-xl">
+          <span className="font-serif italic text-6xl leading-none">
+            {bookList?.length ?? 0}
+          </span>
+          <span className="font-mono text-[10px] uppercase tracking-widest">
+            in your hands
+          </span>
+        </div>
+      </PageHero>
+
       {/* section current borrowed books */}
-      <section>
-        <h1 className="text-xl font-bold py-2">Current Borrowed Books</h1>
+      <section className="mt-16">
+        <SectionTitle no="01" title="In your hands">
+          <span className="-rotate-3 bg-yellow-300 px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider">
+            out now
+          </span>
+        </SectionTitle>
         <div className="relative w-full">
           {!currentStart && (
             <Button
               className="absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-black text-white p-2 rounded-full shadow-lg"
-              icon="ArrowLeftIcon"
+              icon={ArrowLeftIcon}
               color="opacity10"
               onClick={() =>
                 scrollLeft(currentBorrowedRef, setCurrentStart, setCurrentEnd)
@@ -146,7 +174,7 @@ const BorrowRecords = () => {
           {!currentEnd && (
             <Button
               className="absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-black text-white p-2 rounded-full shadow-lg"
-              icon="ArrowRightIcon"
+              icon={ArrowRightIcon}
               color="opacity10"
               onClick={() =>
                 scrollRight(currentBorrowedRef, setCurrentStart, setCurrentEnd)
@@ -157,13 +185,17 @@ const BorrowRecords = () => {
       </section>
 
       {/* section last borrowed books */}
-      <section className="py-4">
-        <h1 className="text-xl font-bold py-2">Last Borrowed Books</h1>
+      <section className="mt-16">
+        <SectionTitle no="02" title="Returned, with love">
+          <span className="rotate-2 bg-neutral-950 text-rose-200 px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider">
+            archived
+          </span>
+        </SectionTitle>
         <div className="relative w-full">
           {!lastStart && (
             <Button
               className="absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-black text-white p-2 rounded-full shadow-lg"
-              icon="ArrowLeftIcon"
+              icon={ArrowLeftIcon}
               color="opacity10"
               onClick={() =>
                 scrollLeft(lastBorrowedRef, setLastStart, setLastEnd)
@@ -196,7 +228,7 @@ const BorrowRecords = () => {
           {!lastEnd && (
             <Button
               className="absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-black text-white p-2 rounded-full shadow-lg"
-              icon="ArrowRightIcon"
+              icon={ArrowRightIcon}
               color="opacity10"
               onClick={() =>
                 scrollRight(lastBorrowedRef, setLastStart, setLastEnd)

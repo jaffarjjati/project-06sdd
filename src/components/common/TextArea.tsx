@@ -37,7 +37,7 @@ const Textarea: React.FC<TextareaProps> = ({
           props.onChange && props.onChange(e);
           if (!touched) setTouched(true);
         }}
-        className={`w-full border rounded-3xl py-2 px-3 text-sm resize-none ${getBorderClasses()} focus:outline-none focus:ring-1 ${className}`}
+        className={`w-full border rounded-3xl py-2 px-3 text-sm resize-none ${getBorderClasses()} focus:outline-hidden focus:ring-1 ${className}`}
       />
 
       {touched && isValid === false && errorMessage && (
