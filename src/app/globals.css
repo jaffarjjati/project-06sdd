@@ -1,6 +1,45 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@import 'tailwind-scrollbar-hide/v4';
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-serif: var(--font-instrument), serif;
+  --font-mono: var(--font-jetbrains), monospace;
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-spin-slow: spin 18s linear infinite;
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes float {
+    50% {
+      translate: 0 -14px;
+    }
+  }
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
 
 :root {
   --background: #ffffff;
@@ -17,47 +56,47 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  @apply font-roboto;
+  font-family: var(--font-roboto), sans-serif;
 }
 .react-datepicker {
-  @apply border !important;
-  @apply border-gray-300 !important;
+  @apply border!;
+  @apply border-gray-300!;
 }
 .react-datepicker__header {
-  @apply bg-rose-300 !important;
+  @apply bg-rose-300!;
 }
 
 .react-datepicker__navigation-icon::before {
-  @apply border-white !important;
+  @apply border-white!;
 }
 
 .react-datepicker__navigation-icon::before:hover {
-  @apply border-rose-500 !important;
+  @apply border-rose-500!;
 }
 
 .react-datepicker__current-month,
 .react-datepicker__day-names .react-datepicker__day-name {
-  @apply text-white !important;
+  @apply text-white!;
 }
 
 .react-datepicker__day:not([aria-disabled="true"]):hover {
-  @apply bg-rose-100 !important;
+  @apply bg-rose-100!;
 }
 
 .react-datepicker__day--keyboard-selected,
 .react-datepicker__day--selected {
-  @apply bg-rose-300 !important;
-  @apply text-white !important;
+  @apply bg-rose-300!;
+  @apply text-white!;
 }
 
 .react-datepicker__day--keyboard-selected:not([aria-disabled="true"]):hover,
 .react-datepicker__day--selected:not([aria-disabled="true"]):hover {
-  @apply bg-rose-500 !important;
-  @apply text-white !important;
+  @apply bg-rose-500!;
+  @apply text-white!;
 }
 
 .react-datepicker__header .react-datepicker__header__dropdown {
-  @apply py-1 !important;
+  @apply py-1!;
 }
 
 .react-datepicker__header
@@ -68,7 +107,7 @@ body {
   .react-datepicker__header__dropdown
   .react-datepicker__year-dropdown-container
   select {
-  @apply rounded !important;
+  @apply rounded-sm!;
 }
 
 .react-datepicker__header
@@ -81,10 +120,10 @@ body {
   .react-datepicker__year-dropdown-container
   select
   option:hover {
-  @apply bg-rose-500 !important;
+  @apply bg-rose-500!;
 }
 
 .react-datepicker__month-select option:hover {
-  @apply bg-rose-300 !important;
-  @apply text-white !important;
+  @apply bg-rose-300!;
+  @apply text-white!;
 }

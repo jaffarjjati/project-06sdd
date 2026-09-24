@@ -1,8 +1,13 @@
 import React, { forwardRef, InputHTMLAttributes, useState, Ref } from "react";
-import * as HeroIcons from "@heroicons/react/24/outline";
+import {
+  CheckCircleIcon,
+  ExclamationCircleIcon,
+  EyeIcon,
+  EyeSlashIcon,
+} from "@heroicons/react/24/outline";
 
 interface InputTextProps extends InputHTMLAttributes<HTMLInputElement> {
-  icon?: string;
+  icon?: React.ComponentType<{ className?: string }>;
   iconPosition?: "left" | "right";
   isValid?: boolean;
   errorMessage?: string;
@@ -28,12 +33,7 @@ const InputText = forwardRef<HTMLInputElement, InputTextProps>(
     const isPassword = type === "password";
     const inputType = isPassword && !showPassword ? "password" : "text";
 
-    const IconComponent =
-      icon &&
-      (HeroIcons as Record<string, React.FC<{ className?: string }>>)[icon];
-
-    const { EyeIcon, EyeSlashIcon, CheckCircleIcon, ExclamationCircleIcon } =
-      HeroIcons;
+    const IconComponent = icon;
 
     const handleBlur = () => setTouched(true);
 
@@ -67,7 +67,7 @@ const InputText = forwardRef<HTMLInputElement, InputTextProps>(
               icon && iconPosition === "left" ? "pl-10" : ""
             } ${
               (icon && iconPosition === "right") || isPassword ? "pr-10" : ""
-            } ${getBorderClasses()} focus:outline-none focus:ring-1 ${className}`}
+            } ${getBorderClasses()} focus:outline-hidden focus:ring-1 ${className}`}
           />
 
           {isPassword && (

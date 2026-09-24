@@ -27,23 +27,26 @@ const CardBookCollection: React.FC<BookProps> = ({
   };
 
   return (
-    <div
-      className={`cursor-pointer transition-transform duration-300 ease-in-out
-      hover:translate-y-[-10px] will-change-transform ${className}`}
-      onClick={toDetail}
-    >
+    <div className={`group cursor-pointer ${className}`} onClick={toDetail}>
       <Image
         src={`${imageSrc}`}
-        alt="Hujan Bulan Juni"
-        width={124}
-        height={124}
-        className="h-auto rounded-lg shadow-[-10px_10px_10px_rgba(0,0,0,0.3)]"
+        alt={title}
+        width={248}
+        height={372}
+        sizes="200px"
+        loading="eager"
+        className="w-full h-auto rounded-r-xl rounded-l-sm shadow-[-14px_18px_24px_-6px_rgba(136,19,55,0.45)]
+        transition-transform duration-500 group-hover:-translate-y-3 group-hover:scale-[1.04]"
       />
-      <h3 className="font-semibold text-xl min-h-[56px] py-2">{title}</h3>
-      <p className="text-sm font-normal pb-2">{author}</p>
-      <div className="bg-gray-200 px-2 rounded-full inline-block">
-        <small className="font-bold text-xs">{genre}</small>
-      </div>
+      <h3 className="font-serif text-2xl leading-none pt-4 pb-1 break-normal">
+        {title}
+      </h3>
+      <p className="font-mono text-[11px] uppercase tracking-widest text-rose-900/70 pb-3">
+        {author}
+      </p>
+      <span className="inline-block -rotate-3 bg-yellow-300 px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider shadow-sm">
+        {genre}
+      </span>
     </div>
   );
 };

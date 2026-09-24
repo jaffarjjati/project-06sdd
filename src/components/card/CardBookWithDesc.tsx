@@ -31,27 +31,13 @@ const CardBookWithDesc: React.FC<BookProps> = ({
   };
 
   const sizeClasses = {
-    sm: {
-      title: "text-base min-h-[40px]",
-      authorContainer: "font-semibold text-base",
-      authorText: "text-sm font-normal",
-      description: "text-xs md:text-sm font-light",
-      padding: "py-2",
-    },
+    sm: { cover: "w-24", title: "text-2xl", description: "text-sm" },
     md: {
-      title: "text-lg md:text-xl min-h-[56px]",
-      authorContainer: "font-semibold text-lg md:text-xl",
-      authorText: "text-base font-normal",
-      description: "text-sm md:text-base font-light",
-      padding: "py-4",
+      cover: "w-32 md:w-40",
+      title: "text-3xl md:text-4xl",
+      description: "text-sm md:text-base",
     },
-    lg: {
-      title: "text-2xl min-h-[56px]",
-      authorContainer: "font-semibold text-2xl",
-      authorText: "text-sm font-normal",
-      description: "text-xs font-light",
-      padding: "py-6",
-    },
+    lg: { cover: "w-44", title: "text-4xl", description: "text-base" },
   };
 
   const getLineClampClass = (lines: number) => {
@@ -87,50 +73,33 @@ const CardBookWithDesc: React.FC<BookProps> = ({
   };
 
   return (
-    <div className={`cursor-pointer ${className}`} onClick={toDetail}>
+    <div
+      className={`group cursor-pointer relative flex items-end gap-5 rounded-[2rem] bg-white/55 backdrop-blur-xl
+      border border-white/70 p-5 shadow-[0_20px_50px_-25px_rgba(136,19,55,0.5)]
+      transition-transform duration-500 hover:-translate-y-2 hover:-rotate-1 ${className}`}
+      onClick={toDetail}
+    >
       <Image
         src={`${imageSrc}`}
-        alt="background blur"
-        width={300}
-        height={200}
-        className="absolute bottom-0 left-0 w-full h-[70%] object-cover blur-sm py-2"
+        alt={title}
+        width={200}
+        height={300}
+        className={`${sizeClasses[size].cover} shrink-0 h-auto -mt-12 -rotate-3 rounded-r-xl rounded-l-sm
+        shadow-[-14px_18px_24px_-6px_rgba(136,19,55,0.45)] transition-transform duration-500 group-hover:rotate-0`}
       />
 
-      <div className="absolute bottom-0 left-0 w-full h-[75%] bg-black bg-opacity-30 backdrop-blur-2xl rounded-xl py-2"></div>
-      <div
-        className="grid grid-cols-3 min-h-full gap-2 px-4 text-white transition-transform duration-300 ease-in-out
-      hover:translate-y-[-10px] will-change-transform"
-      >
-        <div className="col-span-3 md:col-span-1 flex items-end justify-start px-2 z-10">
-          <Image
-            src={`${imageSrc}`}
-            alt="book cover"
-            width={150}
-            height={200}
-            className="rounded-lg w-full shadow-[-10px_10px_10px_rgba(0,0,0,0.3)]"
-          />
-        </div>
-
-        <div className="col-span-3 md:col-span-2 pt-[14%] flex flex-col justify-between h-full z-10">
-          <div className={`${sizeClasses[size].padding}`}>
-            <h3
-              className={`font-semibold ${sizeClasses[size].title} flex items-center`}
-            >
-              {title}
-            </h3>
-            <span className={sizeClasses[size].authorContainer}>
-              By <span className={sizeClasses[size].authorText}>{author}</span>
-            </span>
-          </div>
-
-          <div className="flex items-stretch pb-2">
-            <p
-              className={`text-justify tracking-wider [word-spacing:2px] ${sizeClasses[size].description} ${getLineClampClass(lineClamp)}`}
-            >
-              {description}
-            </p>
-          </div>
-        </div>
+      <div className="min-w-0 flex-1 pb-1">
+        <h3 className={`font-serif leading-none ${sizeClasses[size].title}`}>
+          {title}
+        </h3>
+        <p className="pt-2 pb-3 font-mono text-[11px] uppercase tracking-widest text-rose-900/70">
+          {author}
+        </p>
+        <p
+          className={`text-neutral-700 ${sizeClasses[size].description} ${getLineClampClass(lineClamp)}`}
+        >
+          {description}
+        </p>
       </div>
     </div>
   );

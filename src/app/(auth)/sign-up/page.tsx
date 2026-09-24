@@ -83,18 +83,20 @@ const SignOut = () => {
   };
 
   return (
-    <div className="relative w-100 h-full flex flex-col">
-      <div className="flex-[0.3] pt-2">
-        <h1 className="text-3xl font-bold mb-4">Sign Up</h1>
-      </div>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex-[0.7] items-center"
-      >
+    <div className="w-full">
+      <p className="font-mono text-xs uppercase tracking-[0.3em] text-rose-700">
+        01 — sign up
+      </p>
+      <h1 className="mt-3 mb-10 font-serif text-5xl md:text-6xl leading-none tracking-tight">
+        Get a library <em className="text-rose-600">card</em>.
+      </h1>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-1">
         {error && <p className="text-red-500 text-sm">{error}</p>}
-        <div className="flex gap-2">
+        <div className="flex flex-col sm:flex-row sm:gap-2">
           <div className="flex-1 py-1">
-            <h3 className="font-semibold text-lg py-2 px-3">name</h3>
+            <h3 className="font-mono text-xs uppercase tracking-widest text-rose-900/70 py-2 px-3">
+              name
+            </h3>
             <InputText
               {...customRegister("fullname")}
               name="fullname"
@@ -104,7 +106,9 @@ const SignOut = () => {
             />
           </div>
           <div className="flex-1 py-1">
-            <h3 className="font-semibold text-lg py-2 px-3">username</h3>
+            <h3 className="font-mono text-xs uppercase tracking-widest text-rose-900/70 py-2 px-3">
+              username
+            </h3>
             <InputText
               {...customRegister("username")}
               name="username"
@@ -115,7 +119,9 @@ const SignOut = () => {
           </div>
         </div>
         <div className="py-1">
-          <h3 className="font-semibold text-lg py-2 px-3">email</h3>
+          <h3 className="font-mono text-xs uppercase tracking-widest text-rose-900/70 py-2 px-3">
+            email
+          </h3>
           <InputText
             {...customRegister("email")}
             name="email"
@@ -125,7 +131,9 @@ const SignOut = () => {
           />
         </div>
         <div className="py-1">
-          <h3 className="font-semibold text-lg py-2 px-3">password</h3>
+          <h3 className="font-mono text-xs uppercase tracking-widest text-rose-900/70 py-2 px-3">
+            password
+          </h3>
           <InputText
             {...customRegister("password")}
             type="password"
@@ -139,8 +147,8 @@ const SignOut = () => {
         <div className="flex flex-col py-2">
           <div className="flex justify-center items-center">
             <Button
-              className="rounded-full min-w-[120px]"
-              color="rose"
+              className="rounded-full w-full py-3! hover:bg-rose-600! hover:-rotate-1 transition-all!"
+              color="black"
               type="submit"
             >
               {loading ? "Signing Up..." : "Sign Up"}

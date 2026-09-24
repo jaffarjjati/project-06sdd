@@ -1,10 +1,11 @@
 import { useState, useRef, useEffect } from "react";
-import * as HeroIcons from "@heroicons/react/24/outline";
+import { CheckIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
+import { menuItem, menuItemSelected, menuPanel } from "./menuStyles";
 
 interface Option {
   label: string;
   value: string;
-  icon?: string;
+  icon?: React.ComponentType<{ className?: string }>;
 }
 
 interface SelectProps {
@@ -52,38 +53,34 @@ const Select: React.FC<SelectProps> = ({
     <div className={`relative ${className}`} ref={selectRef}>
       <button
         onClick={toggleDropdown}
-        className="w-full px-4 py-2 bg-white border border-gray-300 rounded-full flex justify-between items-center text-sm
-        hover:bg-rose-50 focus:ring-1 focus:ring-rose-300 transition"
+        className="w-full px-4 py-2 bg-white/85 text-neutral-900 border border-white/70 shadow-sm rounded-full flex justify-between items-center text-sm
+        hover:bg-white focus:ring-1 focus:ring-rose-300 transition"
       >
         <span>{selected}</span>
-        <HeroIcons.ChevronDownIcon
-          className={`h-5 w-5 transition-transform duration-300 ${isOpen ? "rotate-180" : "rotate-0"}`}
+        <ChevronDownIcon
+          className={`h-5 w-5 text-rose-600 transition-transform duration-300 ${isOpen ? "rotate-180" : "rotate-0"}`}
         />
       </button>
 
       {isOpen && (
-        <div className="absolute left-0 w-full mt-2 bg-white border border-gray-300 rounded-3xl shadow-lg z-10">
-          <ul className="py-2 text-sm">
+        <div className={`${menuPanel} left-0 w-full`}>
+          <ul className="flex flex-col gap-0.5">
             {options.map((option) => {
-              const IconComponent = withIcons
-                ? (
-                    HeroIcons as Record<
-                      string,
-                      React.FC<{ className?: string }>
-                    >
-                  )[option.icon || ""]
-                : null;
+              const IconComponent = withIcons ? option.icon : null;
 
               return (
                 <li
                   key={option.value}
-                  className="px-4 py-2 hover:bg-rose-600 hover:text-white rounded-3xl cursor-pointer flex items-center space-x-2"
+                  className={`${menuItem} ${option.label === selected ? menuItemSelected : ""}`}
                   onClick={() => handleSelect(option)}
                 >
                   {withIcons && IconComponent && (
                     <IconComponent className="h-5 w-5" />
                   )}
                   <span>{option.label}</span>
+                  {option.label === selected && (
+                    <CheckIcon className="ml-auto h-4 w-4" />
+                  )}
                 </li>
               );
             })}

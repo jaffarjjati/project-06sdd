@@ -1,11 +1,16 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import * as HeroIcons from "@heroicons/react/24/outline";
+import {
+  CheckIcon,
+  ChevronDownIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
+import { menuItem, menuItemSelected, menuPanel } from "./menuStyles";
 
 interface Option {
   label: string;
   value: string;
-  icon?: string;
+  icon?: React.ComponentType<{ className?: string }>;
 }
 
 interface MultiSelectProps {
@@ -70,10 +75,10 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
         {selected.map((option) => (
           <span
             key={option.value}
-            className="bg-gray-100 text-gray-800 px-2 py-0.5 text-xs rounded-full flex items-center gap-1"
+            className="bg-yellow-300 text-neutral-950 px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider -rotate-2 flex items-center gap-1"
           >
             {option.label}
-            <HeroIcons.XMarkIcon
+            <XMarkIcon
               className="h-4 w-4 cursor-pointer"
               onClick={(e) => {
                 e.stopPropagation();
@@ -83,7 +88,7 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
           </span>
         ))}
         <div className="ml-auto">
-          <HeroIcons.ChevronDownIcon
+          <ChevronDownIcon
             className={`h-5 w-5 transition-transform duration-300 ${
               isOpen ? "rotate-180" : "rotate-0"
             }`}
@@ -92,31 +97,23 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
       </button>
 
       {isOpen && (
-        <div className="absolute left-0 w-full mt-2 bg-white border border-gray-300 rounded-3xl shadow-lg z-10">
-          <ul className="py-2 text-sm max-h-60 overflow-auto">
+        <div className={`${menuPanel} left-0 w-full`}>
+          <ul className="flex flex-col gap-0.5 max-h-60 overflow-auto">
             {options.map((option) => {
               const isSelected = selected.some((s) => s.value === option.value);
-              const IconComponent = withIcons
-                ? (
-                    HeroIcons as Record<
-                      string,
-                      React.FC<{ className?: string }>
-                    >
-                  )[option.icon || ""]
-                : null;
+              const IconComponent = withIcons ? option.icon : null;
 
               return (
                 <li
                   key={option.value}
-                  className={`px-4 py-2 hover:bg-rose-600 hover:text-white rounded-3xl cursor-pointer flex items-center space-x-2 ${
-                    isSelected ? "opacity-50 pointer-events-none" : ""
-                  }`}
+                  className={`${menuItem} ${isSelected ? `${menuItemSelected} pointer-events-none` : ""}`}
                   onClick={() => handleSelect(option)}
                 >
                   {withIcons && IconComponent && (
                     <IconComponent className="h-5 w-5" />
                   )}
                   <span>{option.label}</span>
+                  {isSelected && <CheckIcon className="ml-auto h-4 w-4" />}
                 </li>
               );
             })}
